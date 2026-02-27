@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login1.css" />
+  </head>
+  <body>
+    <form action="sergeensanah.html" method="get" class="card">
+      <h2>Login</h2>
+      <input type="text" class="input" placeholder="Username" required />
+      <input type="password" class="input" placeholder="Password" required />
+      <button class="button" type="submit">Sign In</button>
+    </form>
+    <script>
+      const username = document.querySelector('input[placeholder="Username"]');
+      const password = document.querySelector('input[placeholder="Password"]');
+      const button = document.querySelector(".button");
+      const moves = ["left", "up", "right", "down"];
+      let index = 0;
+
+      function emptyFields() {
+        return username.value.trim() === "" || password.value.trim() === "";
+      }
+
+      function moveButton() {
+        if (emptyFields()) {
+          const current = moves[index % moves.length];
+          button.style.position = "relative";
+          button.style.transition = "transform 0.2s";
+          switch (current) {
+            case "left":
+              button.style.transform = "translateX(-120px)";
+              break;
+            case "up":
+              button.style.transform = "translateY(-60px)";
+              break;
+            case "right":
+              button.style.transform = "translateX(120px)";
+              break;
+            case "down":
+              button.style.transform = "translateY(60px)";
+              break;
+          }
+          index++;
+        } else {
+          button.style.transform = "translate(0,0)";
+        }
+      }
+
+      button.addEventListener("mouseenter", moveButton);
+    </script>
+  </body>
+</html>

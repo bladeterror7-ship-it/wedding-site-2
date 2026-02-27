@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #79a6e4;
+}
+.card {
+  background: #c0cee2;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 20px #ffffff, -10px -10px 20px #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  width: 239px;
+}
+.card h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 10px;
+}
+.input {
+  padding: 12px 15px;
+  border: none;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: inset 5px 5px 10px #ffffff, inset -5px -5px 10px #ffffff;
+  outline: none;
+  font-size: 14px;
+}
+.button {
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 5px 5px 10px #b8bcc2, -5px -5px 10px #ffffff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+}
+.button:active {
+  box-shadow: inset 5px 5px 10px #b8bcc2, inset -5px -5px 10px #ffffff;
+}
+.scroll-box::-webkit-scrollbar {
+  width: 8px;
+}
+.scroll-box::-webkit-scrollbar-thumb {
+  background: #2563eb;
+  border-radius: 4px;
+}
+.scroll-box::-webkit-scrollbar-thumb:hover {
+  background: #1e3a8a;
+}

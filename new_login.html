@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login — Escape Button Demo</title>
+    <style>
+      :root{--bg:#0b1322;--card:#121a2b;--ink:#e5e7eb;--muted:#9aa3b2;--blue:#4f8bff;--error:#ff5a5a}
+      *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh;display:grid;place-items:center}
+      .card{width:min(92%,560px);background:var(--card);border-radius:20px;padding:28px 26px 36px;box-shadow:0 16px 40px rgba(0,0,0,.45);position:relative}
+      h1{margin:0 0 12px;text-align:center;letter-spacing:.5px}
+      .notice{min-height:22px;text-align:center;font-size:14px;color:var(--muted);margin-bottom:8px;transition:color .2s}
+      .notice.error{color:var(--error)}
+      label{display:block;font-size:13px;color:var(--muted);margin:14px 2px 6px}
+      input{width:100%;padding:12px 14px;border:1px solid #263248;background:#0f172a;color:var(--ink);border-radius:10px;outline:none}
+      input:focus{border-color:#2c3e60;box-shadow:0 0 0 3px rgba(79,139,255,.15)}
+      .actions{height:68px;position:relative;margin-top:18px}
+      .btn{position:absolute;left:50%;top:0;transform:translateX(-50%);padding:12px 22px;border:none;border-radius:12px;background:var(--blue);color:#fff;cursor:pointer;font-weight:600;transition:transform .18s ease, background .2s, filter .2s}
+      .btn:hover{filter:brightness(.95)}
+      .btn:disabled{opacity:.6;cursor:not-allowed}
+      /* Зугтах байрлалууд */
+      .left  { transform:translateX(-180%); }
+      .right { transform:translateX(  80%); }
+      .up    { transform:translate(-50%, -56px); }
+      .down  { transform(-50%, 56px); } /* fallback if needed */
+      /* “stay” = төвд үлдэнэ */
+      .stay  { transform:translateX(-50%) !important; }
+      /* бага өргөнд бага зэрэг хөдөлнө */
+      @media (max-width:420px){
+        .left{transform:translateX(-120%)}
+        .right{transform:translateX(20%)}
+        .up{transform:translate(-50%,-46px)}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>LOGIN</h1>
+      <div id="notice" class="notice">
+        Нэвтрэхийн тулд бүх талбараа бөглөнө үү.
+      </div>
+
+      <label for="user">Username</label>
+      <input
+        id="user"
+        type="text"
+        placeholder="DevFlash"
+        autocomplete="username"
+      />
+
+      <label for="pass">Password</label>
+      <input
+        id="pass"
+        type="password"
+        placeholder="••••••••"
+        autocomplete="current-password"
+      />
+
+      <div class="actions">
+        <button id="submitBtn" class="btn stay" type="button">Login</button>
+      </div>
+    </div>
+
+    <script>
+      const username = document.getElementById("user");
+      const password = document.getElementById("pass");
+      const notice = document.getElementById("notice");
+      const submitBtn = document.getElementById("submitBtn");
+
+      const moves = ["left", "up", "right", "down"]; // зугтах дараалал
+      let idx = 0;
+
+      // талбаруудад бичих болгонд шалгана
+      username.addEventListener("input", showNotice);
+      password.addEventListener("input", showNotice);
+
+      // товчин дээр очих үед — хоосон бол зугтана
+      submitBtn.addEventListener("mouseenter", moveBtn);
+      submitBtn.addEventListener("click", onSubmit);
+
+      function emptyFields() {
+        return username.value.trim() === "" || password.value.trim() === "";
+      }
+
+      function moveBtn() {
+        const needRun = emptyFields();
+        submitBtn.disabled = needRun;
+
+        if (needRun) {
+          // анхааруулга
+          notice.textContent = "Fields cannot be empty";
+          notice.classList.add("error");
+
+          // дараагийн байрлал руу шилжих
+          const current = moves[idx % moves.length];
+          submitBtn.classList.remove("left", "right", "up", "down", "stay");
+          submitBtn.classList.add(current);
+          idx++;
+        } else {
+          // бөглөгдсөн тул төвдөө үлдээнэ
+          submitBtn.classList.remove("left", "right", "up", "down");
+          submitBtn.classList.add("stay");
+        }
+      }
+
+      function showNotice() {
+        if (emptyFields()) {
+          submitBtn.disabled = true;
+          notice.textContent = "Fields cannot be empty";
+          notice.classList.add("error");
+        } else {
+          submitBtn.disabled = false;
+          notice.textContent = "Ready to continue";
+          notice.classList.remove("error");
+          // төвд тогтооё
+          submitBtn.classList.remove("left", "right", "up", "down");
+          submitBtn.classList.add("stay");
+        }
+      }
+
+      function onSubmit() {
+        if (emptyFields()) {
+          moveBtn(); // дахин зугтаана
+          return;
+        }
+        // энд жинхэнэ нэвтрэлтийн логик/redirect хийж болно:
+        alert("Амжилттай! Тавтай морил, " + username.value + " 👋");
+        // window.location.href = 'table.html';
+      }
+
+      // эхлэхэд нэг удаа шалгаад төвд байрлуулна
+      showNotice();
+    </script>
+  </body>
+</html>
