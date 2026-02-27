@@ -546,12 +546,17 @@
               бичлэг нь төхөөрөмж дээр татагдана.)
             </p>
             <div class="line"></div>
-
-            <form class="rsvp" id="rsvpForm">
+            <form
+              id="rsvpForm"
+              class="rsvp"
+              action="https://formsubmit.co/zorigtboldsuh@gmail.com"
+              method="POST"
+            >
               <div class="row">
                 <input name="name" placeholder="Овог нэр" required />
                 <input name="phone" placeholder="Утас" required />
               </div>
+
               <div class="row">
                 <input
                   name="guests"
@@ -563,16 +568,26 @@
                 />
                 <input name="food" placeholder="Хоолны хүсэлт (сонголттой)" />
               </div>
+
               <textarea
                 name="note"
                 placeholder="Тэмдэглэл / хүсэлт (сонголттой)"
               ></textarea>
 
+              <input type="hidden" name="_captcha" value="false" />
+              <input
+                type="hidden"
+                name="_subject"
+                value="💍 Шинэ хуримын RSVP бүртгэл"
+              />
+              <input type="hidden" name="_template" value="table" />
+              <input
+                type="hidden"
+                name="_next"
+                value="https://wendding-site.vercel.app/success.html"
+              />
+
               <button class="btn primary" type="submit">📨 Илгээх</button>
-              <div class="p tiny" id="rsvpHint">
-                Хэрвээ чи хүсвэл үүнийг <b>Telegram bot</b> эсвэл
-                <b>Google Sheets</b>-тэй холбож бодитоор хадгалуулж өгч болно.
-              </div>
             </form>
           </div>
 
@@ -668,31 +683,31 @@
       });
 
       // ====== RSVP demo: downloads a txt file locally ======
-      const form = document.getElementById("rsvpForm");
-      form?.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const data = new FormData(form);
-        const obj = Object.fromEntries(data.entries());
+      //       const form = document.getElementById("rsvpForm");
+      //       form?.addEventListener("submit", (e) => {
+      //         e.preventDefault();
+      //         const data = new FormData(form);
+      //         const obj = Object.fromEntries(data.entries());
 
-        const content = `RSVP
-Нэр: ${obj.name}
-Утас: ${obj.phone}
-Хүний тоо: ${obj.guests}
-Хоол: ${obj.food || "-"}
-Тэмдэглэл: ${obj.note || "-"}
+      //         const content = `RSVP
+      // Нэр: ${obj.name}
+      // Утас: ${obj.phone}
+      // Хүний тоо: ${obj.guests}
+      // Хоол: ${obj.food || "-"}
+      // Тэмдэглэл: ${obj.note || "-"}
 
-Sent at: ${new Date().toLocaleString()}`;
+      // Sent at: ${new Date().toLocaleString()}`;
 
-        const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = `RSVP_${(obj.name || "guest").replaceAll(" ", "_")}.txt`;
-        a.click();
-        URL.revokeObjectURL(a.href);
+      //         const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      //         const a = document.createElement("a");
+      //         a.href = URL.createObjectURL(blob);
+      //         a.download = `RSVP_${(obj.name || "guest").replaceAll(" ", "_")}.txt`;
+      //         a.click();
+      //         URL.revokeObjectURL(a.href);
 
-        form.reset();
-        showToast("RSVP бэлэн боллоо ✅");
-      });
+      //         form.reset();
+      //         showToast("RSVP бэлэн боллоо ✅");
+      //       });
     </script>
   </body>
 </html>
